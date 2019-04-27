@@ -9,7 +9,8 @@ function Game(){
         "b2":"b2.png",
         "b3":"b3.png",
         "tile":"tile.png",
-        "Player":"Player.png"
+        "Player":"Player.png",
+        "box":"box.png"
     }
     //图片的数量
     var pic = Object.keys(this.R).length;
@@ -18,6 +19,8 @@ function Game(){
     this.Player = new Player(this);
     //实例化地图
     this.Map = new Map(this);
+    //实例化箱子
+   this.xiangzi = new xiangzi(this);
    var self = this;
     //游戏资源加载
     for(var k in this.R){
@@ -54,6 +57,10 @@ function Game(){
            //更新地图类
            self.Map.update();
            self.Map.render();
+           
+           //更新箱子类
+           self.xiangzi.update();
+           self.xiangzi.render();
        },20)
     }
 }
