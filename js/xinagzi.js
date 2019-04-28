@@ -18,18 +18,11 @@
  xiangzi.prototype.update = function(){
     
  }
- // 改变方向
- xiangzi.prototype.changeDirection = function(n){
-    //  // 每当改方向的时候，都要做16倍数的拉动。
-    //  this.x = Math.round(this.x / 16) * 16;
-    //  this.y = Math.round(this.y / 16) * 16;
-    //  // 同时改一下col
-    //  this.row = parseInt(this.y / 16);
-    //  this.col = parseInt(this.x / 16);
-    //  // 自己的方向改变
-    //  this.state = n;
- }
  xiangzi.prototype.render = function(){
      //渲染图片
-     this.game.ctx.drawImage(this.game.R.box,this.state*32,0,32,32,this.x,this.y,32,32);
+      this.game.ctx.drawImage(this.game.R.box,this.state*32,0,32,32,this.x,this.y,32,32);
+      this.game.ctx.drawImage(this.game.R.box,this.state*32,0,32,32,50,66,32,32);
+      this.game.ctx.drawImage(this.game.R.box,this.state*32,0,32,32,256,66,32,32);
+      this.game.ctx.drawImage(this.game.R.box,this.state*32,0,32,32,256,224,32,32);
+
  }

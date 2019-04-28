@@ -10,7 +10,7 @@ function Player(game){
    //坦克车方向 0 是下 1左 2右 3上
    this.state = 0;  
    // 跳一个格子
-   this.speed = 1;
+   this.speed = 0.5;
    //是否在运动
    this.ismoving = false;
 }
@@ -42,7 +42,6 @@ Player.prototype.changeDirection = function(n){
     // 同时改一下col
     this.row = parseInt(this.y / 16);
     this.col = parseInt(this.x / 16);
-    // 自己的方向改变
     this.state = n;
 }
 Player.prototype.render = function(){
