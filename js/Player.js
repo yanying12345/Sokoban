@@ -21,10 +21,12 @@ Player.prototype.update = function(){
         //下
         if(this.state == 0){
             if(this.y + 32 == this.game.xiangzi.y && this.x == this.game.xiangzi.x){
+                if(this.game.xiangzi.y+32<320-32){
                 this.game.xiangzi.y += 16;
                 this.y += this.speed;
                 //改变row
                 this.row = parseInt(this.y/16);
+                }
             }else{
                 this.y += this.speed;
                 //改变row
@@ -34,9 +36,11 @@ Player.prototype.update = function(){
         }else if(this.state == 1){
             if(!(this.x < 32)){
                 if(this.x == this.game.xiangzi.x + 32 && this.y == this.game.xiangzi.y){
-                    this.game.xiangzi.x -= 16;
-                    this.x -= this.speed;
-                    this.col = parseInt(this.x/16)
+                    if(this.game.xiangzi.x>32){
+                        this.game.xiangzi.x -= 16;
+                        this.x -= this.speed;
+                        this.col = parseInt(this.x/16)
+                    }
                 }else{
                     this.x -= this.speed;
                     this.col = parseInt(this.x/16)
@@ -47,9 +51,11 @@ Player.prototype.update = function(){
         }else if(this.state==2){
             if(!(this.x > 320-64)){
                 if(this.x + 32 == this.game.xiangzi.x && this.y == this.game.xiangzi.y){
+                    if(this.game.xiangzi.x+32<320-32){
                     this.game.xiangzi.x += 16;
                     this.x += this.speed;
                     this.col = parseInt(this.x/16)
+                    }
                 }else{
                     this.x += this.speed;
                     this.col = parseInt(this.x/16)
@@ -59,16 +65,24 @@ Player.prototype.update = function(){
         }else if(this.state == 3){
             if(!(this.y < 32)){
                 if(this.y == this.game.xiangzi.y + 32 && this.x == this.game.xiangzi.x){
+                    if(this.game.xiangzi.y>32){
                     this.game.xiangzi.y -= 16;
                     this.y -= this.speed;
                     this.col = parseInt(this.y/16)
+                    }
                 }else{
                     this.y -= this.speed;
                     this.col = parseInt(this.y/16)
                 }
             }
         }
-        this.ismoving = false;
+        if(this.game.xiangzi.x == 320-64 && this.game.xiangzi.y == 32){
+            setTimeout(function(){
+                alert("你赢了");
+                window.location.reload();
+            },100)
+        }
+        this.ismoving = false; 
     }
 }
 // 改变方向
