@@ -2,6 +2,7 @@ function Game() {
     //画布现在也是实例
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
+    this.timer = null;
     //读图
     this.R = {
         "b0": "b0.png",
@@ -44,7 +45,7 @@ function Game() {
         var self = this;
         //打印帧编号
         this.f = 0;
-        setInterval(function () {
+        this.timer = setInterval(function () {
             self.ctx.clearRect(0, 0, 320, 320);
             //帧编号加加
             self.f++;
@@ -64,6 +65,7 @@ function Game() {
         }, 20)
     }
 }
+/*
 //绑定键盘监听
 Game.prototype.bind = function () {
     //备份this
@@ -100,18 +102,23 @@ Game.prototype.bind = function () {
             //     }
             // });
             //判断当前人物的x坐标减去墙的x坐标（一个格子是16，墙占2个格子，加上人物的一半）是否小于0，小于0则是撞墙
-            if (person_x<48){
-                self.Player.changeDirection(1);
-                self.Player.ismoving = false;
-            }else{
-                self.Player.changeDirection(1);
-                self.Player.ismoving = true;
-            }
+            //获取箱子的坐标
+            // console.log(person_x-144,"判断箱子的距离");
+             //获取箱子的x
+             var box_x = self.xiangzi.x;
+                if (person_x < 48){
+                    self.Player.changeDirection(1);
+                    self.Player.ismoving = false;
+                 }else{
+                    self.Player.changeDirection(1);
+                    self.Player.ismoving = true;
+                }
         }
         if (e.keyCode == 38) {
             var person_y =Math.round(self.Player.y);
             //判断当前人物的x坐标减去墙的x坐标（一个格子是16，墙占2个格子，加上人物的一半）是否小于0，小于0则是撞墙
-            console.log(person_y);
+            var box_x = self.xiangzi.x;
+            console.log(box_x);
             if (person_y<48){
                self.Player.changeDirection(3);
                self.Player.ismoving = false;
@@ -151,6 +158,77 @@ Game.prototype.bind = function () {
     document.onkeyup = function (e) {
         if (e.keyCode == 37 || e.keyCode == 38 || e.keyCode == 39 || e.keyCode == 40) {
             self.Player.ismoving = false;
+        }
+    }
+}
+*/
+Game.prototype.bind = function () {
+    var self = this;
+    var number = true;
+    document.onkeydown = function (e) {
+        if (self.timer != 0) {
+            number = true;
+        }
+    }
+    document.onkeyup = function (e) {
+        if (self.timer != 0) {
+            if (e.keyCode == 40) {
+                if (number) {
+                    var person_y = Math.round(self.Player.y);
+                    //判断当前人物的x坐标减去墙的x坐标（一个格子是16，墙占2个格子，加上人物的一半）是否小于0，小于0则是撞墙
+                    console.log(person_y);
+                    if (person_y > 250) {
+                        self.Player.changeDirection(0);
+                        self.Player.ismoving = false;
+                    } else {
+                        self.Player.changeDirection(0);
+                        self.Player.ismoving = true;
+                    }
+                }
+            }
+            if (e.keyCode == 39) {
+                if (number) {
+                    var person_y = Math.round(self.Player.x);
+                    //判断当前人物的x坐标减去墙的x坐标（一个格子是16，墙占2个格子，加上人物的一半）是否小于0，小于0则是撞墙
+                    console.log(person_y);
+                    if (person_y > 250) {
+                        self.Player.changeDirection(2);
+                        self.Player.ismoving = false;
+                    } else {
+                        self.Player.changeDirection(2);
+                        self.Player.ismoving = true;
+                    }
+                }
+            }
+            if (e.keyCode == 38) {
+                if (number) {
+                    var person_y = Math.round(self.Player.y);
+                    //判断当前人物的x坐标减去墙的x坐标（一个格子是16，墙占2个格子，加上人物的一半）是否小于0，小于0则是撞墙
+                    console.log(person_y);
+                    if (person_y < 48) {
+                        self.Player.changeDirection(3);
+                        self.Player.ismoving = false;
+                    } else {
+                        self.Player.changeDirection(3);
+                        self.Player.ismoving = true;
+                    }
+                }
+            }
+            if (e.keyCode == 37) {
+                if (number) {
+                    var person_y = Math.round(self.Player.x);
+                    //判断当前人物的x坐标减去墙的x坐标（一个格子是16，墙占2个格子，加上人物的一半）是否小于0，小于0则是撞墙
+                    console.log(person_y);
+                    if (person_y < 48) {
+                        self.Player.changeDirection(1);
+                        self.Player.ismoving = false;
+                    } else {
+                        self.Player.changeDirection(1);
+                        self.Player.ismoving = true;
+                    }
+                }
+            }
+            // number = false;
         }
     }
 }
